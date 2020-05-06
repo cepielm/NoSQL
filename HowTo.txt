@@ -1,0 +1,2 @@
+Wszystkie pliki przekopiować do /root na maszynie uruchamiającej kontynery.
+Folder /root jest montowany do kontynerów i z niego są odpalane poszczególne skrypty

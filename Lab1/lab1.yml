@@ -1,0 +1,42 @@
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    networks:
+      lab1_net:
+        ipv4_address: 172.20.20.2
+    volumes:
+      - /root:/mnt
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+  mariadb:
+    image: mariadb
+    restart: always
+    networks:
+      lab1_net:
+        ipv4_address: 172.20.20.3
+    volumes:
+      - /root:/mnt
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  python:
+    image: python
+    restart: always
+    networks:
+      lab1_net:
+        ipv4_address: 172.20.20.4
+    volumes:
+      - /root:/mnt
+    command: bash -c "pip3.8 install pymongo mysql-connector-python && python3.8 /mnt/lab1.py && tail -f /etc/passwd > /dev/null"
+
+networks:
+  lab1_net:
+    ipam:
+      driver: default
+      config: 
+        - subnet: 172.20.20.0/24
